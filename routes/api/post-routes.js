@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { Post, User, Vote } = require('../../models');
 const sequelize = require('../../config/connection');
+const { Post, User, Vote } = require('../../models');
 
 // Get all users
 router.get('/', (req, res) => {
@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
                         'title', 
                         'created_at',
                         [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count'],
-                        'vote_count'
         ],
         order: [['created_at', 'DESC']],
         include: [
@@ -42,7 +41,6 @@ router.get('/:id', (req, res) => {
                         'title', 
                         'created_at',
                         [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count'],
-                        'vote_count'
         ],
         include: [
             {
